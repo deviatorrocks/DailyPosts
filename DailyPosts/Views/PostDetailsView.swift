@@ -35,6 +35,7 @@ struct PostDetailsView: View {
                         CommentItemView(description: comment.body, name: comment.name, email: comment.email)
                     }
                 }
+                .navigationTitle(LocalizedStringKey("Details Posts"))
                 .alert(isPresented: $showAlert) {
                     Alert(title: Text("Network Error"), message: Text(viewModel.errorMessage ?? "Unknown error"), dismissButton: .default(Text("OK")))
                 }
@@ -51,7 +52,6 @@ struct PostDetailsView: View {
                 .opacity(progressBar.isLoading ? 1 : 0)
         )
         .task {
-            print("Task started")
             progressBar.show()
             do {
                 try await viewModel.fetchComments(postId: self.viewModel.post.id)
@@ -60,7 +60,6 @@ struct PostDetailsView: View {
                 showAlert = true
                 progressBar.hide()
             }
-            print("Task completed")
         }
     }
 }
