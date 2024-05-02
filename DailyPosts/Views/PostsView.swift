@@ -41,7 +41,6 @@ struct PostsView: View {
                 .opacity(progressBar.isLoading ? 1 : 0)
         )
         .task {
-            print("Task started")
             progressBar.show()
             do {
                 try await viewModel.fetchPosts()
@@ -50,7 +49,6 @@ struct PostsView: View {
                 showAlert = true
                 progressBar.hide()
             }
-            print("Task completed")
         }
     }
 }
